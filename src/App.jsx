@@ -1,13 +1,13 @@
-import { useState } from 'react'
+import Navbar from "./Navbar";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      
+      <Navbar />
+      <h2>Hello World</h2>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
