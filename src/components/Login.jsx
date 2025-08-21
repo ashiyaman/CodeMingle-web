@@ -8,6 +8,7 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
     const [email, setEmail] = useState("ashiya@gmail.com")
     const [password, setPassword] = useState("Ashiya@123")
+    const [error, setError] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -16,12 +17,11 @@ const Login = () => {
             const res =  await axios.post(BASE_URL + "/login", {
                 email, password
             }, { withCredentials: true })
-            console.log(res.data)
             dispatch(addUser(res.data))
             navigate("/")
         }
         catch(error){
-            console.log(error)
+            setError(error?.response?.data || "Something Went Wrong")
         }
     }
 
@@ -32,7 +32,7 @@ const Login = () => {
                 <h2 className="card-title justify-center">Login</h2>
                 <input type="text" placeholder="Email" className="input" onChange={(e) => setEmail(e.target.value)} value={email}/>
                 <input type="text" placeholder="Password" className="input" onChange={(e) => setPassword(e.target.value)} value={password}/>
-                <p>{email}{password}</p>
+                <p className="text-red-500">{error}</p>
                 <div className="card-actions justify-center mt-4">
                     <button className="btn btn-primary" onClick={loginHandler}>Login</button>
                 </div>
