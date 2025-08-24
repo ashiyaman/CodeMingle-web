@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Body from "./components/Body";
 import Feed from "./components/Feed";
 import appStore from "./utils/appStore";
+import Profile from "./components/Profile"
 
 function App() {
 
@@ -14,9 +15,9 @@ function App() {
       <BrowserRouter basename="/">
         <Routes>
           <Route path="/" element={<Body />}>
-            <Route path="/feed" element={ <Feed /> }></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/test" element={<div>Test page</div>}></Route>
+            <Route path="/feed" element={ <Feed /> }></Route>            
+            <Route path="/profile" element={<Profile />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
