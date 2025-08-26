@@ -18,7 +18,7 @@ const Login = () => {
                 email, password
             }, { withCredentials: true })
             dispatch(addUser(res.data))
-            navigate("/feed")
+            navigate("/")
         }
         catch(error){
             setError(error?.response?.data || "Something Went Wrong")
