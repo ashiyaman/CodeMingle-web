@@ -1,9 +1,9 @@
 const UserCard = ({ user }) => {
   const { firstName, lastName, age, gender, bio, photoUrl, skills } = user;
   return (
-    <div className="card bg-base-300 shadow-sm mx-5 mt-10">
-      <figure className="mt-4">
-        <img src={photoUrl} alt={`${firstName} Photo`} />
+    <div className="card bg-base-300 shadow-sm mx-5 mt-10 py-2 w-1/3">
+      <figure className="w-full h-65 object-cover">
+        <img className="h-full" src={photoUrl} alt={`${firstName} Photo`} />
       </figure>
       <div className="card-body">
         <h2 className="card-title">
