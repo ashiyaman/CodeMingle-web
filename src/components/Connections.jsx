@@ -28,7 +28,7 @@ const Connections = () => {
         {connections && 
             <ul className="m-auto w-1/2">
                 {connections.map(connection => {
-                    const {firstName, lastName, photoUrl, age, gender, bio, skills} = connection
+                    const {firstName, lastName, photoUrl, age, gender, bio} = connection
                     return (
                         <li key={connection._id} className="flex p-5 rounded-box bg-base-300 my-2">
                             <div className="h-20 flex justify-center">
