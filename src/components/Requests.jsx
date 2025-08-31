@@ -20,6 +20,16 @@ const Requests = () => {
     getRequests();
   }, []);
 
+  const reviewRequest = async(requestId, status) => {
+    try{
+        const res = await axios.post(`${BASE_URL}/request/review/${status}/:${requestId}`)
+        console.log(res)
+    }
+    catch(error){
+        console.log(error.message)
+    }
+  }
+
   if (!requests || requests.length === 0)
     return <p className="text-center m-4">No Connection Requests Found</p>;
 
@@ -28,7 +38,7 @@ const Requests = () => {
     <h1 className="text-2xl my-4">Connection Requests</h1>
         {requests && 
                 requests.map(request => {
-                    const {firstName, lastName, photoUrl, age, gender, bio, skills} = request.fromUserId
+                    const {_id,firstName, lastName, photoUrl, age, gender, bio, skills} = request.fromUserId
                     return (
                         <div key={request._id} className="w-2xl flex justify-between m-4 p-4 rounded-lg bg-base-300 mx-auto">
                             <div className="flex">
@@ -49,8 +59,8 @@ const Requests = () => {
                                 </div>       
                             </div>  
                             <div className="flex flex-row">
-                                <div className="btn btn-soft btn-warning mx-1">Ignore</div>
-                                <div className="btn btn-soft btn-secondary mx-1">Interested</div>
+                                <div className="btn btn-soft btn-warning mx-1" onClick={reviewRequest(_id, "ignored")}>Ignore</div>
+                                <div className="btn btn-soft btn-secondary mx-1" onClick={reviewRequest(_id, "interested")}>Interested</div>
                             </div>              
                         </div>
                     )
