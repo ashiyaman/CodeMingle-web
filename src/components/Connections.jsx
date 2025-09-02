@@ -26,7 +26,7 @@ const Connections = () => {
     <div className="text-center">
     <h3 className="text-2xl my-4">Connections</h3>
         {connections && 
-            <ul className="m-auto w-1/2">
+            <ul className="m-auto w-3/4">
                 {connections.map(connection => {
                     const {firstName, lastName, photoUrl, age, gender, bio} = connection
                     return (

@@ -8,7 +8,6 @@ const UserCard = ({ user }) => {
       <div className="card-body">
         <h2 className="card-title">
           {firstName} {lastName}
-          <div className="badge badge-secondary">NEW</div>
         </h2>
         <p>
           {age && <span>{age}</span>} {gender && <span>{gender}</span>}
