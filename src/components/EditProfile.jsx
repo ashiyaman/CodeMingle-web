@@ -10,7 +10,7 @@ const Editprofile = ({ user }) => {
   const [lastName, setLastName] = useState(user?.lastName || "");
   const [age, setAge] = useState(user?.age);
   const [bio, setBio] = useState(user?.bio || "");
-  const [gender, setGender] = useState(user?.gender || "");
+  const [gender, setGender] = useState(user?.gender || "Gender");
   const [photoUrl, setPhotoUrl] = useState(user?.photoUrl || "");
   const [skills, setSkills] = useState(user?.skills || []);
   const [error, setError] = useState("");
@@ -34,7 +34,7 @@ const Editprofile = ({ user }) => {
         );
         dispatch(addUser(res?.data?.data))
         setShowToast(true)
-        setTimeout(() => {setShowToast(false)}, 2000)        
+        setTimeout(() => {setShowToast(false)}, 5000)        
     } catch (error) {
       console.log(error);
     }
@@ -75,7 +75,6 @@ const Editprofile = ({ user }) => {
                         />
                     </label>
                     <select
-                        defaultValue="gender"
                         value={gender}
                         onChange={(e) => setGender(e.target.value)}
                         className="select"

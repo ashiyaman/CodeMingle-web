@@ -2,12 +2,13 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed, removeUserFromFeed } from "../utils/feedSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
 
 const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store.feed);
+  const [showToast, setShowToast] = useState(false)
 
   const getFeed = async () => {
     try {
@@ -25,12 +26,16 @@ const Feed = () => {
   const statusHandler = async (status, toUserId) => {
     try {
       const response = await axios.post(
-        BASE_URL + "/request/send/" + status + "/" + toUserId,
+        `${BASE_URL}/request/send/${status}/${toUserId}`,
         {},
         { withCredentials: true }
       );
       if (response.data) {
         dispatch(removeUserFromFeed(toUserId));
+        if(status === "interested"){
+          setShowToast(true)
+          setTimeout(() => setShowToast(false), 5000)
+        }
       }
     } catch (error) {
       console.log(error);
@@ -62,6 +67,13 @@ const Feed = () => {
             statusHandler={statusHandler}
           />
         ))}
+        {showToast && 
+          <div className="toast toast-top toast-start">
+              <div className="alert alert-success">
+                  <span>Sent Request Successfully.</span>
+              </div>
+          </div>
+        }
       </div>
     )
   );

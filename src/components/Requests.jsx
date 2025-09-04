@@ -1,12 +1,16 @@
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequests } from "../utils/requestSlice";
+import { addRequests, removeRequest } from "../utils/requestSlice";
 
 const Requests = () => {
   const requests = useSelector((store) => store.request);
+  const [showToast, setShowToast] = useState(false)
+  const [status, setStatus] = useState("")
   const dispatch = useDispatch();
+
+
   const getRequests = async () => {
     const res = await axios.get(BASE_URL + "/user/request/received", {
       withCredentials: true,
@@ -20,9 +24,19 @@ const Requests = () => {
 
   const reviewRequest = async (requestId, status) => {
     try {
-      const res = await axios.post(
-        `${BASE_URL}/request/review/${status}/:${requestId}`
+      const response = await axios.post(
+        `${BASE_URL}/request/review/${status}/${requestId}`, {},
+        {withCredentials: true}
       );
+      if(response.data){
+        dispatch(removeRequest(requestId))
+        setStatus(status)
+        setShowToast(true)
+        setTimeout(() => {
+          setShowToast(false)
+          setStatus("")
+        }, 5000) 
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -32,7 +46,7 @@ const Requests = () => {
     return (
       <div className="toast toast-center toast-middle">
         <div className="alert alert-warning text-m text-center">
-          <span className="text-white text-">No new connection found.</span>
+          <span className="text-white text-">No new connection requests.</span>
         </div>
       </div>
     );
@@ -80,20 +94,27 @@ const Requests = () => {
               <div className="flex flex-row my-4">
                 <div
                   className="btn btn-soft btn-warning mx-1"
-                  onClick={reviewRequest(_id, "ignore")}
+                  onClick={() => reviewRequest(request._id, "rejected")}
                 >
-                  Ignore
+                  Reject
                 </div>
                 <div
                   className="btn btn-soft btn-secondary mx-1"
-                  onClick={reviewRequest(_id, "interested")}
+                  onClick={() => reviewRequest(request._id, "accepted")}
                 >
-                  Interested
+                  Accept
                 </div>
               </div>
             </div>
           );
         })}
+      {showToast && 
+            <div className="toast toast-top toast-start">
+                <div className="alert alert-success">
+                    <span>Request {status}.</span>
+                </div>
+            </div>
+        }
     </div>
   );
 };
