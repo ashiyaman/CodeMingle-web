@@ -80,7 +80,7 @@ const Requests = () => {
               <div className="flex flex-row my-4">
                 <div
                   className="btn btn-soft btn-warning mx-1"
-                  onClick={reviewRequest(_id, "ignored")}
+                  onClick={reviewRequest(_id, "ignore")}
                 >
                   Ignore
                 </div>

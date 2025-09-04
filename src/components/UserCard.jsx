@@ -1,5 +1,5 @@
-const UserCard = ({ user }) => {
-  const { firstName, lastName, age, gender, bio, photoUrl, skills } = user;
+const UserCard = ({ user, statusHandler }) => {
+  const { _id, firstName, lastName, age, gender, bio, photoUrl, skills } = user;
   return (
     <div className="card bg-base-300 shadow-sm mx-5 mt-10 py-2  md:w-1/3">
       <figure className="w-full h-65 object-cover">
@@ -15,8 +15,8 @@ const UserCard = ({ user }) => {
         {bio && <p>{bio}</p>}
         {skills && <p>{skills}</p>}
         <div className="card-actions justify-center my-4">
-          <div className="btn btn-soft btn-warning">Ignore</div>
-          <div className="btn btn-soft btn-secondary">Interested</div>
+          <div onClick={() => statusHandler("ignore", _id)} className="btn btn-soft btn-warning">Ignore</div>
+          <div onClick={() => statusHandler("interested", _id)} className="btn btn-soft btn-secondary">Interested</div>
         </div>
       </div>
     </div>
