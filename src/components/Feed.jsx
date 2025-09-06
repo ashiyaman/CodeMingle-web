@@ -60,13 +60,12 @@ const Feed = () => {
   return (
     feed && (
       <div className="flex flex-col md:flex-row justify-center my-10">
-        {feed.map((userFeed) => (
+
           <UserCard
-            key={userFeed._id}
-            user={userFeed}
+            user={feed[0]}
             statusHandler={statusHandler}
           />
-        ))}
+
         {showToast && 
           <div className="toast toast-top toast-start">
               <div className="alert alert-success">
